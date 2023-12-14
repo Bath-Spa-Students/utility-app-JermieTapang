@@ -1,1 +1,81 @@
 
+print('''
+█▄─█─▄█▄─▄▄─█▄─▀█▄─▄█▄─▄▄▀█▄─▄█▄─▀█▄─▄█─▄▄▄▄███▄─▀█▀─▄██▀▄─██─▄▄▄─█─█─█▄─▄█▄─▀█▄─▄█▄─▄▄─█
+██▄▀▄███─▄█▀██─█▄▀─███─██─██─███─█▄▀─██─██▄─████─█▄█─███─▀─██─███▀█─▄─██─███─█▄▀─███─▄█▀█
+▀▀▀▄▀▀▀▄▄▄▄▄▀▄▄▄▀▀▄▄▀▄▄▄▄▀▀▄▄▄▀▄▄▄▀▀▄▄▀▄▄▄▄▄▀▀▀▄▄▄▀▄▄▄▀▄▄▀▄▄▀▄▄▄▄▄▀▄▀▄▀▄▄▄▀▄▄▄▀▀▄▄▀▄▄▄▄▄▀''')
+
+print("Welcome! What would you like to buy?")
+
+#Item Category
+Drinks = {
+    'W12': {'Type': 'Water', 'Brand': 'MayDubai', 'Price': 1.25},
+    'W10': {'Type': 'Water', 'Brand': 'Welkins', 'Price': 1.50},
+    'W47': {'Type': 'Water', 'Brand': 'Arwa', 'Price': 1.75},
+    'W21': {'Type': 'Water', 'Brand': 'Oasis', 'Price': 1.15},
+    'S10': {'Type': 'Soda', 'Brand': 'Cokacola', 'Price': 2.25},
+    'S81': {'Type': 'Soda', 'Brand': 'Fanta', 'Price': 2.95},
+    'S90': {'Type': 'Soda', 'Brand': 'Mountain Dew', 'Price': 2.75},
+    'S42': {'Type': 'Soda', 'Brand': 'Pepsi', 'Price': 2.55},
+}
+
+Dessert = {
+    'D82': {'Type': 'Ice Cream', 'Brand': 'Igloo', 'Price': 1.50},
+    'D93': {'Type': 'Ice Cream', 'Brand': 'London', 'Price': 2.25},
+    'D73': {'Type': 'Ice Cream', 'Brand': 'Baskin Robins', 'Price': 3.25},
+    'C52': {'Type': 'Cake', 'Brand': 'Chocolate Cake', 'Price': 4.55},
+    'C81': {'Type': 'Cake', 'Brand': 'Vanila', 'Price': 3.75},
+    'C90': {'Type': 'Cake', 'Brand': 'Strawberry', 'Price': 3.95},
+}
+Snacks = {
+    'B74': {'Type': 'Biscuits', 'Brand': 'Tiger', 'Price': 1.70},
+    'B86': {'Type': 'Biscuits', 'Brand': 'Oreo', 'Price': 1.35},
+    'B77': {'Type': 'Biscuits', 'Brand': 'Prince', 'Price': 2.25},
+    'B29': {'Type': 'Biscuits', 'Brand': 'Fita', 'Price': 2.15},
+    'H04': {'Type': 'Chips', 'Brand': 'Doritos', 'Price': 1.25},
+    'H89': {'Type': 'Chips', 'Brand': 'Lays', 'Price': 1.55},
+    'H74': {'Type': 'Chips', 'Brand': 'Oman', 'Price': .70},
+    'H62': {'Type': 'Chips', 'Brand': 'Pringles', 'Price': 2.75},
+}
+
+
+
+def print_items(category, items):
+    print("*************")
+    print(category)
+    for key, item in items.items():
+        print(f"{key}. {item['Brand']} - {item['Type']} - AED {item['Price']}")
+
+
+print_items("Snacks", Snacks)
+print_items("Drinks", Drinks)
+print_items("Dessert", Dessert)
+
+
+select = input("Please enter the item number that you want: ")
+
+#Insert Money
+selected_item = None
+amount_due = 0
+
+categories = [Snacks, Drinks, Dessert]
+for category in categories:
+    if select in category:
+        selected_item = category[select]
+        print(f"You have chosen {selected_item['Brand']} - {selected_item['Type']}.")
+        amount_due = selected_item['Price']
+        break
+
+#The change you get after buying
+while amount_due > 0:
+    try:
+        payment = float(input(f"Please insert AED {amount_due:.2f}: "))
+        if payment >= amount_due:
+            change = payment - amount_due
+            print(f"Thank you for your purchase! Your change is AED {change:.2f}.")
+            break
+        else:
+            print("You don't have enough money. Please add the correct amount.")
+            amount_due -= payment
+    except ValueError:
+        print("Invalid input. Please enter the correct amount.")
+
